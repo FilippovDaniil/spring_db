@@ -24,11 +24,11 @@ public class Account {
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Bill> biils;
+    private List<Bill> bills;
 
-    public Account(String name, String email, List<Bill> biils) {
+    public Account(String name, String email, List<Bill> bills) {
         this.name = name;
         this.email = email;
-        this.biils = biils;
+        this.bills = bills;
     }
 }

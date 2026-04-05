@@ -7,6 +7,7 @@ import Start.repository.AccountRepository;
 import Start.utils.AccountUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -20,6 +21,7 @@ public class TransferService {
         this.accountService = accountService;
     }
 
+    @Transactional
     public Object transfer(Long accountIdFrom, Long accountIdTo, BigDecimal amount){
         Account accountFrom = accountService.getById(accountIdFrom);
         Account accountTo = accountService.getById(accountIdTo);
