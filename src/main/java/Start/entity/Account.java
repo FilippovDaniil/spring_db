@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,6 @@ public class Account {
     public Account(String name, String email, List<Bill> bills) {
         this.name = name;
         this.email = email;
-        this.bills = bills;
+        this.bills = bills == null ? null : new ArrayList<>(bills);
     }
 }

@@ -25,7 +25,7 @@ public class AccountResponseDTO {
         this.accountId = account.getAccountId();
         this.name = account.getName();
         this.email = account.getEmail();
-        this.bills = account.getBiils()
+        this.bills = account.getBills()
                 .stream().map(BillResponseDTO::new)
                 .collect(Collectors.toList());
     }
