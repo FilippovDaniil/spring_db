@@ -1,0 +1,342 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "spring_db API",
+    "description": "Коллекция запросов для Spring DB приложения. Базовый URL: http://localhost:9999",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:9999",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Account",
+      "item": [
+        {
+          "name": "Get Account by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/accounts/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["accounts", "1"]
+            },
+            "description": "Получить аккаунт по его ID. Возвращает AccountResponseDTO с полями: accountId, name, email, bills."
+          },
+          "response": [
+            {
+              "name": "200 OK - Account Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["accounts", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accountId\": 1,\n  \"name\": \"Ivan Ivanov\",\n  \"email\": \"ivan@example.com\",\n  \"bills\": [\n    {\n      \"billId\": 1,\n      \"amount\": 1000.00,\n      \"isDefault\": true\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Account",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ivan Ivanov\",\n  \"email\": \"ivan@example.com\",\n  \"bills\": [\n    {\n      \"amount\": 1000.00,\n      \"isDefault\": true\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/accounts",
+              "host": ["{{baseUrl}}"],
+              "path": ["accounts"]
+            },
+            "description": "Создать новый аккаунт. Принимает AccountRequestDTO: name, email, и опциональный список bills (amount, isDefault). Возвращает ID созданного аккаунта (Long)."
+          },
+          "response": [
+            {
+              "name": "200 OK - Account Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Ivan Ivanov\",\n  \"email\": \"ivan@example.com\",\n  \"bills\": [\n    {\n      \"amount\": 1000.00,\n      \"isDefault\": true\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/accounts",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["accounts"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "1"
+            }
+          ]
+        },
+        {
+          "name": "Create Account (without bills)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Petr Petrov\",\n  \"email\": \"petr@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/accounts",
+              "host": ["{{baseUrl}}"],
+              "path": ["accounts"]
+            },
+            "description": "Создать аккаунт без начальных счетов (bills не обязателен)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Deposit",
+      "item": [
+        {
+          "name": "Make Deposit",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": 1,\n  \"amount\": 500.00\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/deposit",
+              "host": ["{{baseUrl}}"],
+              "path": ["deposit"]
+            },
+            "description": "Пополнить счёт аккаунта. Принимает DepositRequestDTO: account_id (Long), amount (BigDecimal)."
+          },
+          "response": [
+            {
+              "name": "200 OK - Deposit Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": 1,\n  \"amount\": 500.00\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/deposit",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["deposit"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "Make Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": 1,\n  \"amount\": 200.00\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments"]
+            },
+            "description": "Провести платёж со счёта аккаунта. Принимает PaymentRequestDTO: account_id (Long), amount (BigDecimal)."
+          },
+          "response": [
+            {
+              "name": "200 OK - Payment Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": 1,\n  \"amount\": 200.00\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["payments"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Transfer",
+      "item": [
+        {
+          "name": "Transfer Funds",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id_from\": 1,\n  \"account_id_to\": 2,\n  \"amount\": 300.00\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/transfers",
+              "host": ["{{baseUrl}}"],
+              "path": ["transfers"]
+            },
+            "description": "Перевести средства между аккаунтами. Принимает TransferRequestDTO: account_id_from (Long), account_id_to (Long), amount (BigDecimal)."
+          },
+          "response": [
+            {
+              "name": "200 OK - Transfer Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id_from\": 1,\n  \"account_id_to\": 2,\n  \"amount\": 300.00\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/transfers",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["transfers"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
