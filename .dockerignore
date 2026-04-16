@@ -1,0 +1,8 @@
+target/
+.idea/
+.settings/
+*.iml
+*.iws
+*.ipr
+.git/
+postman_tests/
